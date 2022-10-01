@@ -63,11 +63,16 @@ public class BancoMaut {
     public void depositar(int valor){
 
         setSaldo(getSaldo() + valor);
-
+        JOptionPane.showMessageDialog(null, "DEPOSITO REALIZADO!");
     }
 
     public void sacar(int valor){
-        setSaldo(getSaldo() - valor);
+        if(valor <= getSaldo()){
+            setSaldo(getSaldo() - valor);
+
+        }else{
+            JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE!");
+        }
     }
 
     public void statusDaConta(){

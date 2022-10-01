@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class main {
+public class App {
     public static void main(String[] args) throws Exception {
     
         BancoMaut b1;
         
         ArrayList<BancoMaut> contas = new ArrayList<>();
         
-        String [] r = new String[]{"ENCERRAR", "DEPOSITO", "SAQUE", "STATUS","CRIAR CONTA"};
+        String [] r = new String[]{"CRIAR CONTA", "DEPOSITO", "SAQUE", "STATUS","ENCERRAR"};
 
         int x = 0;
 
@@ -44,19 +44,20 @@ public class main {
             break;   
 
             case 4:
+            JOptionPane.showMessageDialog(null, "FECHANDO");
+            x = 0;
+
+            break;
+
+            
+            case 0:
             b1 = new BancoMaut(new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente: "), 
             Integer.parseInt(JOptionPane.showInputDialog(null, "CPF: ")),
             Integer.parseInt(JOptionPane.showInputDialog(null, "Data de Nascimento: ")),
             JOptionPane.showInputDialog(null, "Endereço: ")));
 
             contas.add(b1);
-            x = 1;
-            break;
-
-            
-            case 0:
-            default:
-            x = 0;    
+            x = 1;    
             break;
         }
             
