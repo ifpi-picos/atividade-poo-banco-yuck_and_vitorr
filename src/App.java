@@ -6,10 +6,11 @@ public class App {
     public static void main(String[] args) throws Exception {
     
         BancoMaut b1;
+        BancoMaut b2;
         
         ArrayList<BancoMaut> contas = new ArrayList<>();
         
-        String [] r = new String[]{"CRIAR CONTA", "DEPOSITO", "SAQUE", "STATUS","ENCERRAR"};
+        String [] r = new String[]{"CRIAR CONTA", "DEPOSITO", "SAQUE", "STATUS","TRANSFERIR","ENCERRAR"};
 
         int x = 0;
 
@@ -44,6 +45,23 @@ public class App {
             break;   
 
             case 4:
+
+            int t = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
+            b1 = contas.get(t-1);
+            
+            int tranf = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?"));
+            b1.setSaldo(b1.getSaldo()-tranf);
+
+            int tr = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta que deseja transferir: "));
+            b2 = contas.get(tr-1);
+            b2.setSaldo(b2.getSaldo()+tranf);
+
+            JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
+            
+            x = 1;
+            break;
+            
+            case 5:
             JOptionPane.showMessageDialog(null, "FECHANDO");
             x = 0;
 
