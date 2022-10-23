@@ -2,24 +2,32 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-public class BancoMaut {
+public class Conta {
 
     private int numeroAgencia;
     private int numeroConta;
-    private int saldo;
+    private double saldo;
     private Cliente cliente;
+    private String tipo;
 
-    public BancoMaut(Cliente cliente){
+    public Conta(Cliente cliente, String tipoDaConta){
 
         Random random = new Random();
 
         this.numeroAgencia = random.nextInt(100);
         this.numeroConta = random.nextInt(100);
 
+        setTipo(tipoDaConta);
+
         setCliente(cliente);
+
     }
     
     
+    public Conta(Cliente cliente2) {
+    }
+
+
     public int getNumeroAgencia() {
         return numeroAgencia;
     }
@@ -40,12 +48,12 @@ public class BancoMaut {
     }
 
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
@@ -60,13 +68,23 @@ public class BancoMaut {
     }
 
 
-    public void depositar(int valor){
+    public String getTipo() {
+        return tipo;
+    }
+
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+
+    public void depositar(double valor){
 
         setSaldo(getSaldo() + valor);
         JOptionPane.showMessageDialog(null, "DEPOSITO REALIZADO!");
     }
 
-    public void sacar(int valor){
+    public void sacar(double valor){
         if(valor <= getSaldo()){
             setSaldo(getSaldo() - valor);
 
@@ -75,9 +93,17 @@ public class BancoMaut {
         }
     }
 
+    public void transferir(double valor, Conta contaDestino){
+
+        setSaldo(getSaldo() - valor);
+        contaDestino.depositar(valor);
+
+    }
+
+
     public void statusDaConta(){
 
-        JOptionPane.showMessageDialog(null, "\nNUMERO DA AGENCIA: "+ getNumeroAgencia ()+"\nSALDO: "+getSaldo()+
+        JOptionPane.showMessageDialog(null, "\nNUMERO DA CONTA: "+ getNumeroConta() +"\nNUMERO DA AGENCIA: "+ getNumeroAgencia ()+"\nSALDO: "+getSaldo()+
         "\nCLIENTE: "+ cliente.getNome(),
          "Status da conta",JOptionPane.PLAIN_MESSAGE);
 

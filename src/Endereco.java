@@ -1,11 +1,11 @@
-public class Endereço {
+public class Endereco {
     private String nomeRua;
     private String nomeBairro;
     private int numeroRua;
     private String nomeEstado;
     private String nomeCidade;
 
-    public Endereço(String nomeRua, String nomeBairro, int numeroRua, String nomeEstado, String nomeCidade){
+    public Endereco(String nomeRua, String nomeBairro, int numeroRua, String nomeEstado, String nomeCidade){
 
         this.nomeRua = nomeRua;
         this.nomeBairro = nomeBairro;

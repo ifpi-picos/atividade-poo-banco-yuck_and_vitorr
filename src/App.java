@@ -5,10 +5,13 @@ import javax.swing.JOptionPane;
 public class App {
     public static void main(String[] args) throws Exception {
     
-        BancoMaut b1;
-        BancoMaut b2;
+        Conta b1;
+        Conta b2;
+        ContaCorrente cc;
+        ContaPoupanca cp;
         
-        ArrayList<BancoMaut> contas = new ArrayList<>();
+        
+        ArrayList<Conta> contas = new ArrayList<>();
         
         String [] r = new String[]{"CRIAR CONTA", "DEPOSITO", "SAQUE", "STATUS","TRANSFERIR","ENCERRAR"};
 
@@ -19,11 +22,32 @@ public class App {
         JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, r, 0);
 
         switch (op) {
-            case 1:
+            
+            case 0:
+            b1 = new Conta(new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente: "), 
+            JOptionPane.showInputDialog(null, "CPF: "),
+            Integer.parseInt(JOptionPane.showInputDialog(null, "Data de Nascimento: ")),
+            JOptionPane.showInputDialog(null, "Endereço: ")),JOptionPane.showInputDialog(null, "INFORME O TIPO DA CONTA:\nPOUPANCA OU CORRENTE"));
+            
+            b1.statusDaConta();
+            contas.add(b1);
+
+            x = 1;    
+            break;
+            
+            case 1://TRABALHANDO AQUI
             int c = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
             b1 = contas.get(c-1);
             
-            b1.depositar(Integer.parseInt(JOptionPane.showInputDialog(null, "Valor de deposito: ")));
+            if("POUPANCA".equalsIgnoreCase(b1.getTipo())){
+                cp = new ContaPoupanca(b1.getCliente(), b1.getTipo());
+
+            }else{
+                cc = new ContaCorrente(b1.getCliente(), b1.getTipo());
+                cc.deposita(Double.parseDouble(JOptionPane.showInputDialog(null, "Valor de deposito: ")),b1);
+            }
+            
+            
             x = 1;     
             break;
             
@@ -48,13 +72,12 @@ public class App {
 
             int t = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
             b1 = contas.get(t-1);
-            
-            int tranf = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?"));
-            b1.setSaldo(b1.getSaldo()-tranf);
 
             int tr = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta que deseja transferir: "));
             b2 = contas.get(tr-1);
-            b2.setSaldo(b2.getSaldo()+tranf);
+
+            b1.transferir(Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?")), b2);
+
 
             JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
             
@@ -66,23 +89,13 @@ public class App {
             x = 0;
 
             break;
-
-            
-            case 0:
-            b1 = new BancoMaut(new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente: "), 
-            Integer.parseInt(JOptionPane.showInputDialog(null, "CPF: ")),
-            Integer.parseInt(JOptionPane.showInputDialog(null, "Data de Nascimento: ")),
-            JOptionPane.showInputDialog(null, "Endereço: ")));
-
-            contas.add(b1);
-            x = 1;    
-            break;
+ 
         }
             
         } while (x != 0);
           
         
     }
-
     
+
 }
