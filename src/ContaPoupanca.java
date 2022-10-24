@@ -4,12 +4,19 @@ public class ContaPoupanca extends Conta {
         super(cliente, tipo);
     }
 
-    private double rendimento;
+    private double rendimento = 1.1;  //rendimento de 10%
 
     public void transfere(double valor, Conta contaDestino){
 
-        //TRABALHANDO AQUI
+        double posTaxa = valor - (valor*0.05);
+        transferir(posTaxa, contaDestino);
 
     }
+
+    public void depositar(double valor, Conta conta) {
+        conta.depositar(valor*rendimento);
+    }
+
+    
     
 }

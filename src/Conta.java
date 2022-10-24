@@ -88,8 +88,6 @@ public class Conta {
         if(valor <= getSaldo()){
             setSaldo(getSaldo() - valor);
 
-        }else{
-            JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE!");
         }
     }
 

@@ -23,7 +23,7 @@ public class App {
 
         switch (op) {
             
-            case 0:
+            case 0: //CRIAR CONTA
             b1 = new Conta(new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente: "), 
             JOptionPane.showInputDialog(null, "CPF: "),
             Integer.parseInt(JOptionPane.showInputDialog(null, "Data de Nascimento: ")),
@@ -35,31 +35,38 @@ public class App {
             x = 1;    
             break;
             
-            case 1://TRABALHANDO AQUI
+            case 1: //DEPOSITAR
             int c = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
             b1 = contas.get(c-1);
             
             if("POUPANCA".equalsIgnoreCase(b1.getTipo())){
                 cp = new ContaPoupanca(b1.getCliente(), b1.getTipo());
-
+                cp.depositar(Double.parseDouble(JOptionPane.showInputDialog(null, "Valor que deseja depositar: ")),b1);
             }else{
                 cc = new ContaCorrente(b1.getCliente(), b1.getTipo());
-                cc.deposita(Double.parseDouble(JOptionPane.showInputDialog(null, "Valor de deposito: ")),b1);
+                cc.deposita(Double.parseDouble(JOptionPane.showInputDialog(null, "Valor que deseja depositar: ")),b1);
             }
             
             
             x = 1;     
             break;
             
-            case 2:
+            case 2: //SACAR
             int y = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
             b1 = contas.get(y-1);
             
-            b1.sacar(Integer.parseInt(JOptionPane.showInputDialog(null, "Valor de saque: ")));
+            if("POUPANCA".equalsIgnoreCase(b1.getTipo())){
+                b1.sacar(Integer.parseInt(JOptionPane.showInputDialog(null, "QUANTO DESEJA SACAR: ")));
+            }else{
+                cc = new ContaCorrente(b1.getCliente(), b1.getTipo());
+                cc.saca(Double.parseDouble(JOptionPane.showInputDialog(null, "QUANTO DESEJA SACAR: ")),b1);
+            }
+            
+            
             x = 1;    
             break;
                 
-            case 3:
+            case 3: //STATUS DA CONTA
             
             int z = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
             b1 = contas.get(z-1);
@@ -68,8 +75,8 @@ public class App {
             x = 1;
             break;   
 
-            case 4:
-
+            case 4: //TRANSFERENCIA
+            //TRABALHANDO AQUI
             int t = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
             b1 = contas.get(t-1);
 
@@ -84,7 +91,7 @@ public class App {
             x = 1;
             break;
             
-            case 5:
+            case 5: //SAIR DO BANCO
             JOptionPane.showMessageDialog(null, "FECHANDO");
             x = 0;
 
