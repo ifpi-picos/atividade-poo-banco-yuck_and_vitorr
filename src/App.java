@@ -3,15 +3,11 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class App {
+    static ArrayList <Conta> contas;
+
     public static void main(String[] args) throws Exception {
-    
-        Conta b1;
-        Conta b2;
-        ContaCorrente cc;
-        ContaPoupanca cp;
+        contas = new ArrayList<Conta>();
         
-        
-        ArrayList<Conta> contas = new ArrayList<>();
         
         String [] r = new String[]{"CRIAR CONTA", "DEPOSITO", "SAQUE", "STATUS","TRANSFERIR","ENCERRAR"};
 
@@ -24,66 +20,86 @@ public class App {
         switch (op) {
             
             case 0: //CRIAR CONTA
-            b1 = new Conta(new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente: "), 
-            JOptionPane.showInputDialog(null, "CPF: "),
-            Integer.parseInt(JOptionPane.showInputDialog(null, "Data de Nascimento: ")),
-            JOptionPane.showInputDialog(null, "Endereço: ")),JOptionPane.showInputDialog(null, "INFORME O TIPO DA CONTA:\nPOUPANCA OU CORRENTE"));
+            String nome = JOptionPane.showInputDialog(null, "NOME DO CLIENTE:");
+            String CPF = JOptionPane.showInputDialog(null, "CPF:");
+            String DATA = JOptionPane.showInputDialog(null, "DATA:");
+            String endereco = JOptionPane.showInputDialog(null, "ENDERECO:");
+            Cliente c1 = new Cliente(nome, CPF, DATA, endereco);
+            String tipo = JOptionPane.showInputDialog(null, "TIPO:");
+
+            ContaCorrente cc1 = new ContaCorrente(c1, tipo);
+            ContaPoupanca cp1 = new ContaPoupanca(c1, tipo);
+
+
+
+            if(tipo.equalsIgnoreCase("CORRENTE")){
+
             
-            b1.statusDaConta();
-            contas.add(b1);
+            contas.add(cc1);
+            cc1.statusDaConta();
+            }
+            else{
+                contas.add(cp1);
+                cp1.statusDaConta();
+            }
 
             x = 1;    
             break;
             
             case 1: //DEPOSITAR
-            int c = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
-            b1 = contas.get(c-1);
             
-            if("POUPANCA".equalsIgnoreCase(b1.getTipo())){
-                cp = new ContaPoupanca(b1.getCliente(), b1.getTipo());
-                cp.depositar(Double.parseDouble(JOptionPane.showInputDialog(null, "Valor que deseja depositar: ")),b1);
-            }else{
-                cc = new ContaCorrente(b1.getCliente(), b1.getTipo());
-                cc.deposita(Double.parseDouble(JOptionPane.showInputDialog(null, "Valor que deseja depositar: ")),b1);
-            }
-            
+                int nu = Integer.parseInt( JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA QUE DESEJA DEPOSITAR:"));
+                Conta conta = informarConta(nu);
+
+                if(conta != null){
+                    
+                    double deposita = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA DEPOSITAR:"));
+                    conta.depositar(deposita);
+                }
             
             x = 1;     
             break;
-            
+                
+        
             case 2: //SACAR
-            int y = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
-            b1 = contas.get(y-1);
             
-            if("POUPANCA".equalsIgnoreCase(b1.getTipo())){
-                b1.sacar(Integer.parseInt(JOptionPane.showInputDialog(null, "QUANTO DESEJA SACAR: ")));
-            }else{
-                cc = new ContaCorrente(b1.getCliente(), b1.getTipo());
-                cc.saca(Double.parseDouble(JOptionPane.showInputDialog(null, "QUANTO DESEJA SACAR: ")),b1);
+             nu = Integer.parseInt( JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA QUE DESEJA SACAR:"));
+             conta = informarConta(nu);
+
+                if(conta != null){
+                    
+                    double sacar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA SACAR:"));
+                    conta.sacar(sacar);
+
             }
-            
+        
             
             x = 1;    
             break;
                 
             case 3: //STATUS DA CONTA
             
-            int z = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
-            b1 = contas.get(z-1);
-            
-            b1.statusDaConta();
+            nu = Integer.parseInt( JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA:"));
+            for (Conta c: contas){
+
+            if(c.getNumeroConta() == nu){
+                c.statusDaConta();
+            }
+        }
             x = 1;
+            
             break;   
 
             case 4: //TRANSFERENCIA
-            //TRABALHANDO AQUI
-            int t = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta: "));
-            b1 = contas.get(t-1);
+                    //TRABALHANDO AQUI
+            
+            int c = Integer.parseInt(JOptionPane.showInputDialog(null, "NUMERO DA CONTA: "));
+            conta = informarConta(c);
 
-            int tr = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha a conta que deseja transferir: "));
-            b2 = contas.get(tr-1);
+            int cd = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME A CONTA DESTINO: "));
+            Conta conta2 = informarConta(cd);
 
-            b1.transferir(Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?")), b2);
+            conta.transferir(Double.parseDouble(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?")), conta2);
 
 
             JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
@@ -104,5 +120,16 @@ public class App {
         
     }
     
-
+    public static Conta informarConta(int numeroDaConta){
+        Conta conta = null;
+        if (contas.size() > 0){
+            for(Conta c : contas){
+                if (c.getNumeroConta() == numeroDaConta){
+                conta =  c;   
+            }
+        }
+        }
+        return conta;
+        
+    }
 }

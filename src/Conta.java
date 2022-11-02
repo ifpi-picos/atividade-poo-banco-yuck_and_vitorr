@@ -7,7 +7,7 @@ public class Conta {
     private int numeroAgencia;
     private int numeroConta;
     private double saldo;
-    private Cliente cliente;
+    protected Cliente cliente;
     private String tipo;
 
     public Conta(Cliente cliente, String tipoDaConta){
@@ -78,23 +78,25 @@ public class Conta {
     }
 
 
-    public void depositar(double valor){
-
-        setSaldo(getSaldo() + valor);
+    public void depositar(Double valor){
+        
+        this.setSaldo(this.getSaldo() + valor);
         JOptionPane.showMessageDialog(null, "DEPOSITO REALIZADO!");
     }
 
-    public void sacar(double valor){
-        if(valor <= getSaldo()){
-            setSaldo(getSaldo() - valor);
+    public void sacar(Double i){
+        if(i <= getSaldo()){
+            setSaldo(getSaldo() - i);
 
+        }else{
+            JOptionPane.showMessageDialog(null, "IMPOSSIVEL SACAR");
         }
     }
 
     public void transferir(double valor, Conta contaDestino){
 
         setSaldo(getSaldo() - valor);
-        contaDestino.depositar(valor);
+        contaDestino.setSaldo(getSaldo() + valor);
 
     }
 
@@ -106,5 +108,8 @@ public class Conta {
          "Status da conta",JOptionPane.PLAIN_MESSAGE);
 
     }
+
+
+    
     
 }
