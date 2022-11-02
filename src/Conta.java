@@ -96,7 +96,7 @@ public class Conta {
     public void transferir(double valor, Conta contaDestino){
 
         setSaldo(getSaldo() - valor);
-        contaDestino.setSaldo(getSaldo() + valor);
+        contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 
     }
 

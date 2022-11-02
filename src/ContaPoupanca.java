@@ -12,6 +12,7 @@ public class ContaPoupanca extends Conta {
 
         double posTaxa = valor - (valor*0.05);
         super.transferir(posTaxa, contaDestino);
+        this.setSaldo(getSaldo() - valor*0.05);
 
     }
  
