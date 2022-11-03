@@ -73,13 +73,13 @@ public class ContaCorrente extends Conta {
 
     @Override
     public void sacar(Double valor) {
-        
-        String[] email_sms = new String[]{"EMAIL","SMS"};
-        int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
-        JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
 
         
         if(valor > getSaldo() && getChequeEspecial() + valor <= 1000){
+            
+            String[] email_sms = new String[]{"EMAIL","SMS"};
+            int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
+            JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
             
             setChequeEspecial(getChequeEspecial() + valor);
             JOptionPane.showMessageDialog(null, "RETIRADO DO CHEQUE");
@@ -94,6 +94,11 @@ public class ContaCorrente extends Conta {
             }
 
         }else if(valor < getSaldo()){
+            
+            String[] email_sms = new String[]{"EMAIL","SMS"};
+            int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
+            JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
+            
             super.sacar(valor);
             JOptionPane.showMessageDialog(null, "SAQUE REALIZADO");
             if(escolha == 0){
@@ -103,11 +108,7 @@ public class ContaCorrente extends Conta {
             }
         }else{
             super.sacar(valor);
-            if(escolha == 0){
-                email.enviarNotificacao("SAQUE", valor);
-            }else{
-                sms.enviarNotificacao("SAQUE", valor);
-            }
+            
         }
         
         

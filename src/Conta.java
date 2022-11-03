@@ -90,16 +90,17 @@ public class Conta{
         JOptionPane.showMessageDialog(null, "DEPOSITO REALIZADO!");
     }
 
-    public void sacar(Double i){
-        
-        String[] email_sms = new String[]{"EMAIL","SMS"};
-        int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
-        JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
+    public void sacar(Double i){ 
         
         if(i <= getSaldo()){
             setSaldo(getSaldo() - i);
             
             if(getTipo().equalsIgnoreCase("POUPANCA")){
+                
+                String[] email_sms = new String[]{"EMAIL","SMS"};
+                int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
+                JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
+                
                 if(escolha == 0){
                     email.enviarNotificacao("SAQUE", i);
                 }else{
