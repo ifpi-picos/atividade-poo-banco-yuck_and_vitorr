@@ -3,9 +3,9 @@ public class Cliente {
     private String nome;
     private String cpf;
     private String dataDeNascimento;
-    private String endereco;
+    private Endereco endereco;
 
-    public Cliente(String nome, String cpf, String dataDeNascimento, String endereço ){
+    public Cliente(String nome, String cpf, String dataDeNascimento, Endereco endereço ){
 
         this.nome = nome;
         this.cpf = cpf;
@@ -26,7 +26,7 @@ public class Cliente {
         return dataDeNascimento;
     }
 
-    public String getEndereço() {
+    public Endereco getEndereço() {
         return endereco;
     }
     
