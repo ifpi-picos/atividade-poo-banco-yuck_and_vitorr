@@ -2,7 +2,10 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-public class Conta {
+import notificacoes.Email;
+import notificacoes.Sms;
+
+public class Conta{
 
     private int numeroAgencia;
     private int numeroConta;
@@ -10,6 +13,9 @@ public class Conta {
     protected Cliente cliente;
     private String tipo;
 
+    Email email = new Email();
+    Sms sms = new Sms();
+    
     public Conta(Cliente cliente, String tipoDaConta){
 
         Random random = new Random();
@@ -85,9 +91,21 @@ public class Conta {
     }
 
     public void sacar(Double i){
+        
+        String[] email_sms = new String[]{"EMAIL","SMS"};
+        int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
+        JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
+        
         if(i <= getSaldo()){
             setSaldo(getSaldo() - i);
-
+            
+            if(getTipo().equalsIgnoreCase("POUPANCA")){
+                if(escolha == 0){
+                    email.enviarNotificacao("SAQUE", i);
+                }else{
+                    sms.enviarNotificacao("SAQUE", i);
+                }
+            }
         }else{
             JOptionPane.showMessageDialog(null, "IMPOSSIVEL SACAR");
         }

@@ -34,7 +34,7 @@ public class App {
 
             if(tipo.equalsIgnoreCase("CORRENTE")){
 
-            
+                
             contas.add(cc1);
             cc1.statusDaConta();
             }
@@ -55,6 +55,8 @@ public class App {
                     
                     double deposita = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA DEPOSITAR:"));
                     conta.depositar(deposita);
+                }else{
+                    JOptionPane.showMessageDialog(null, "CONTA NÃO DISPONIVEL");
                 }
             
             x = 1;     
@@ -71,6 +73,8 @@ public class App {
                     double sacar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA SACAR:"));
                     conta.sacar(sacar);
 
+            }else{
+                JOptionPane.showMessageDialog(null, "CONTA NÃO DISPONIVEL");
             }
         
             
@@ -80,12 +84,15 @@ public class App {
             case 3: //STATUS DA CONTA
             
             nu = Integer.parseInt( JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA:"));
-            for (Conta c: contas){
-
-            if(c.getNumeroConta() == nu){
-                c.statusDaConta();
-            }
-        }
+            
+                for (Conta c: contas){
+                    if(c.getNumeroConta() == nu){
+                        c.statusDaConta();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "CONTA NAO DISPONIVEL");
+                    }
+                }
+            
             x = 1;
             
             break;   
@@ -99,10 +106,15 @@ public class App {
             int cd = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME A CONTA DESTINO: "));
             Conta conta2 = informarConta(cd);
 
-            conta.transferir(Double.parseDouble(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?")), conta2);
+            if(contas.contains(conta) && contas.contains(conta2)){
+                
+                conta.transferir(Double.parseDouble(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?")), conta2);
+                JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
 
-
-            JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
+            }else{
+                JOptionPane.showMessageDialog(null, "ERRO...");
+            }
+            
             
             x = 1;
             break;
