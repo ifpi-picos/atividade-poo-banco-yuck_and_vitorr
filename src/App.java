@@ -23,7 +23,7 @@ public class App {
             String nome = JOptionPane.showInputDialog(null, "NOME DO CLIENTE:");
             String CPF = JOptionPane.showInputDialog(null, "CPF:");
             String DATA = JOptionPane.showInputDialog(null, "DATA:");
-            Endereco endereco = new Endereco(JOptionPane.showInputDialog(null, "NOME DA RUA:"), JOptionPane.showInputDialog(null, "NOME DO BAIRRO"), Integer.parseInt(JOptionPane.showInputDialog(null, "NUMERO DA RUA")), JOptionPane.showInputDialog(null, "NOME DO ESTADO"), JOptionPane.showInputDialog(null, "NUMERO DA CIDADE"));
+            Endereco endereco = new Endereco(JOptionPane.showInputDialog(null, "NOME DA RUA:"), JOptionPane.showInputDialog(null, "NOME DO BAIRRO"), Integer.parseInt(JOptionPane.showInputDialog(null, "NUMERO DA RUA")), JOptionPane.showInputDialog(null, "NOME DO ESTADO"), JOptionPane.showInputDialog(null, "NOME DA CIDADE"));
             Cliente c1 = new Cliente(nome, CPF, DATA, endereco);
             String tipo = JOptionPane.showInputDialog(null, "TIPO:");
 
