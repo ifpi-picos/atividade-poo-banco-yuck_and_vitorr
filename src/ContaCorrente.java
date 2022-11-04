@@ -59,31 +59,39 @@ public class ContaCorrente extends Conta {
     public void transferir(double valor, Conta contaDestino){
         
         String[] email_sms = new String[]{"EMAIL","SMS"};
-        int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
-        JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
         
-        super.transferir(valor, contaDestino);
+        if(getSaldo() >= valor){
+            int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
+            JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
+        
+            super.transferir(valor, contaDestino);
 
-        if(escolha == 0){
-            email.enviarNotificacao("TRANSFERÊNCIA", valor);
+            if(escolha == 0){
+                email.enviarNotificacao("TRANSFERÊNCIA", valor);
+            }else{
+                sms.enviarNotificacao("TRANSFERÊNCIA", valor);
+            }
+
+            JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
         }else{
-            sms.enviarNotificacao("TRANSFERÊNCIA", valor);
+            JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE");
         }
+        
     }
 
     @Override
     public void sacar(Double valor) {
 
         
-        if(valor > getSaldo() && getChequeEspecial() + valor <= 1000){
+        if(valor > getSaldo() && getChequeEspecial() + (valor-getSaldo()) <= 1000){
             
             String[] email_sms = new String[]{"EMAIL","SMS"};
             int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
             JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
             
-            setChequeEspecial(getChequeEspecial() + valor);
+            setChequeEspecial(getChequeEspecial() + (valor-getSaldo()));
             JOptionPane.showMessageDialog(null, "RETIRADO DO CHEQUE");
-            setSaldo(getChequeEspecial());
+            setSaldo(valor);
             super.sacar(valor);
             JOptionPane.showMessageDialog(null, "SAQUE REALIZADO");
 

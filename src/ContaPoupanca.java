@@ -17,18 +17,26 @@ public class ContaPoupanca extends Conta {
     public void transferir(double valor, Conta contaDestino){
 
         String[] email_sms = new String[]{"EMAIL","SMS"};
-        int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
-        JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
         
-        double posTaxa = valor - (valor*0.05);
-        super.transferir(posTaxa, contaDestino);
-        this.setSaldo(getSaldo() - valor*0.05);
+        if(getSaldo() >= valor ){
+            int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
+            JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
+        
+            double posTaxa = valor - (valor*0.05);
+            super.transferir(posTaxa, contaDestino);
+            this.setSaldo(getSaldo() - valor*0.05);
 
-        if(escolha == 0){
-            email.enviarNotificacao("TRANSFERÊNCIA", valor);
+            if(escolha == 0){
+                email.enviarNotificacao("TRANSFERÊNCIA", valor);
+            }else{
+                sms.enviarNotificacao("TRANSFERÊNCIA", valor);
+            }
+            JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
+
         }else{
-            sms.enviarNotificacao("TRANSFERÊNCIA", valor);
+            JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE");
         }
+        
 
     }
  

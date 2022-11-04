@@ -88,8 +88,6 @@ public class App {
                 for (Conta c: contas){
                     if(c.getNumeroConta() == nu){
                         c.statusDaConta();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "CONTA NAO DISPONIVEL");
                     }
                 }
             
@@ -108,8 +106,8 @@ public class App {
 
             if(contas.contains(conta) && contas.contains(conta2)){
                 
-                conta.transferir(Double.parseDouble(JOptionPane.showInputDialog(null, "Qual o valor que deseja transferir?")), conta2);
-                JOptionPane.showMessageDialog(null, "TRANSFERENCIA FEITA!");
+                conta.transferir(Double.parseDouble(JOptionPane.showInputDialog(null, "QUAL O VALOR QUE DESEJA TRANSFERIR?")), conta2);
+                
 
             }else{
                 JOptionPane.showMessageDialog(null, "ERRO...");
