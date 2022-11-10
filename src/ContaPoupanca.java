@@ -22,8 +22,7 @@ public class ContaPoupanca extends Conta {
             int escolha = JOptionPane.showOptionDialog(null, "SMS OU EMAIL", "NOTIFICAÇÃO", 
             JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, email_sms, 0);
         
-            double posTaxa = valor - (valor*0.05);
-            super.transferir(posTaxa, contaDestino);
+            super.transferir(valor, contaDestino);
             this.setSaldo(getSaldo() - valor*0.05);
 
             if(escolha == 0){
